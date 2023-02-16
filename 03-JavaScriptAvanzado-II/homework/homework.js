@@ -13,7 +13,17 @@ nuevoContador()     // 2
 const otroContador = counter()
 otroContador()      // 1
 otroContador()      // 2 */
-function counter() {}
+function counter() {
+  var count=0;
+  return function(){
+    count++;
+    return count;
+  }
+}
+var nuevoContador=counter();
+console.log(nuevoContador());
+
+
 
 /* Ejercicio 2
 Tu tarea aquí es lograr, mediante un closure, que cacheFunction actúe como una memoria caché para el callback 
@@ -33,7 +43,26 @@ otra vez cálculos que ya se hicieron anteriormente.
   squareCache(5)    // invocará a square(5), almacenará el resultado y lo retornará
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) */
 
-function cacheFunction(cb) {}
+function cacheFunction(cb) {
+  var cache={};
+ return function(arg){
+    if(cache.hasOwnProperty(arg)){
+      return cache[arg];
+    }else{
+      cache[arg]=cb(arg);
+      return cache[arg];
+    }
+   
+ }
+}
+function square(num){
+  return num * num;
+}
+var squareCache=cacheFunction(square);
+console.log(squareCache(5));
+console.log(squareCache(5));
+
+
 
 //----------------------------------------
 
@@ -50,7 +79,9 @@ var alumno = {
 };
 
 function getNombre() {
-  return this.nombre;}
+  return  this.nombre;
+}
+
 
 /*
   Ejercicio 3
@@ -58,8 +89,8 @@ function getNombre() {
   Usando el método bind() guardar, en las dos variables declaradas a continuación, dos funciones que actúen como getNombre pero retornen el nombre del instructor y del alumno, respectivamente.
 */
 
-let getNombreInstructor = getNombre.bind();
-let getNombreAlumno = getNombre.bind();
+let getNombreInstructor = getNombre.bind(instructor);
+let getNombreAlumno = getNombre.bind(alumno);
 
 /*
   Ejercicio 4
@@ -70,9 +101,10 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
     return delimitadorIzquierda + cadena + delimitadorDerecha;
 }
 
-let textoAsteriscos = crearCadena.bind();
-let textoGuiones = crearCadena.bind();
-let textoUnderscore = crearCadena.bind();
+let textoAsteriscos = crearCadena.bind(null,"*","*","Hola",);
+let textoGuiones = crearCadena.bind(null,"-","-","Hola");
+let textoUnderscore = crearCadena.bind(null,"_","_","Hola");
+console.log(textoAsteriscos());
 
 // No modifiquen nada debajo de esta linea
 // --------------------------------
