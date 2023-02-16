@@ -14,9 +14,27 @@ Secuencia:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
 Como ejercicio adicional y completamente opcional, al terminar de resolver este problema pueden intentar definir funciones que logren los mismos resultados pero de manera iterativa.
 */
 
-function nFactorial(n) {}
+function nFactorial(n) {
+  if(n==0||n==1){
+    return 1;
+  }
+  return n * nFactorial(n -1);
+}
+//var arr=[0,1];
+function nFibonacci(n) {
+  
+  // if(n==0){
+  //  return arr[arr.length-2];
+  // }
+  // arr.push(arr[arr.length-1]+arr[arr.length-2]);
+  // return nFibonacci(n-1);
+  
+  if(n < 2) return n;
+   return nFibonacci(n-2) + nFibonacci(n-1);
 
-function nFibonacci(n) {}
+}
+//console.log(nFibonacci(6));
+
 
 /*
 Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde el primer elemento que ingresa es el primero que se quita. Definir los siguientes métodos:
@@ -27,7 +45,29 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 Pueden utilizar class o función constructora.
 */
 
-function Queue() {}
+function Queue() {
+  this.arr=[];
+}
+Queue.prototype.enqueue=function(valor){
+  return this.arr.unshift(valor);
+}
+Queue.prototype.dequeue=function(){
+  if(this.arr == []){
+     return undefined;
+  }
+  return this.arr.pop();
+}
+Queue.prototype.size=function(){
+  return this.arr.length;
+}
+var cola= new Queue;
+
+cola.enqueue(123);
+cola.enqueue(2);
+cola.enqueue(3);
+cola.enqueue(4);
+cola.enqueue(5);
+
 
 /*⚠️ No modificar nada debajo de esta línea ⚠️*/
 module.exports = {
